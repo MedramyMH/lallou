@@ -1,0 +1,32 @@
+[GENERAL]
+# IQ Option credentials - CHANGE THESE!
+email = mamora5027@gmail.com
+password = Medramy12345*-
+# Trading settings
+entry_amount = 10.0
+account_type = PRACTICE
+# Options: PRACTICE, REAL
+
+# Risk management
+stop_win = 100.0
+stop_loss = 50.0
+
+# Martingale settings
+martingale = Y
+martingale_multiplier = 2.2
+martingale_levels = 2
+
+# Analysis settings
+analyze_trend = Y
+check_news = Y
+
+[TELEGRAM]
+# Telegram bot settings (get token from @BotFather)
+enabled = Y
+token = 8432186447:AAHStxiGWnqeLAk9XmeCS-ExwEuNSUsXWqg
+chat_id = 1454104544
+
+[DATABASE]
+# Database settings for price storage
+save_prices = Y
+price_update_interval = 5

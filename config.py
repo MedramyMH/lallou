@@ -1,0 +1,29 @@
+"""
+Configuration for Signal Generator Bot
+"""
+
+CONFIG = {
+    "assets": [
+        "EURUSD", "GBPUSD", "USDJPY", "USDCHF", "USDCAD",
+        "AUDUSD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY"
+    ],
+    "timeframes": [1, 5, 15, 60],
+    "strategies": [
+        "moving_average",
+        "rsi", 
+        "bollinger_bands",
+        "macd"
+    ],
+    "analysis_interval": 300,  # 5 minutes
+    "min_confidence": 0.7,
+    "data_points_required": 50,
+    "telegram": {
+        "enabled": True,
+        "token": "8432186447:AAHStxiGWnqeLAk9XmeCS-ExwEuNSUsXWqg",
+        "chat_id": "1454104544"
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "signal_bot.log"
+    }
+}
