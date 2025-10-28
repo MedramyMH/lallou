@@ -8,3 +8,4 @@ schedule
 scikit-learn
 ta-lib
 psutil
+flask
