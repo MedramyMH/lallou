@@ -31,9 +31,9 @@ class SignalGenerator:
         
         # Minimum data requirements per timeframe
         self.min_data_requirements = {
-            1: 60,   # 1 hour of M1 data
-            5: 100,  # ~8 hours of M5 data
-            15: 100  # ~24 hours of M15 data
+            1: 120,   # 1 hour of M1 data
+            5: 150,  # ~8 hours of M5 data
+            15: 200  # ~24 hours of M15 data
         }
     
     def get_price_data(self, asset: str, timeframe: int, limit: int = 150) -> pd.DataFrame:
@@ -162,6 +162,10 @@ class SignalGenerator:
         
         # Detect trend
         trend_info = self.detect_trend(df)
+        if trend_info['strength'] < 0.6:
+            self.logger.info(f"Skipping {asset} M{timeframe}: weak trend ({trend_info['strength']:.2f})")
+            return None
+
         
         # Signal scoring system
         buy_score = 0
@@ -257,7 +261,7 @@ class SignalGenerator:
             return None
         
         # Minimum score threshold
-        min_score = 3.5 if timeframe == 1 else 4.0
+        min_score = 5 if timeframe == 1 else 5.5
         
         if buy_score > sell_score and buy_score >= min_score:
             direction = 'BUY'
@@ -276,16 +280,16 @@ class SignalGenerator:
             return None
 
         # Additional confidence filter
-        if confidence < 0.60:
+        if confidence < 0.68:
             return None
 
         
         # Calculate target price based on ATR
-        atr_value = current['atr']
         if direction == 'BUY':
-            target_price = current['close'] + (atr_value * 0.5)
+            target_price = current['close'] + (atr_value * 0.9)
         else:
-            target_price = current['close'] - (atr_value * 0.5)
+            target_price = current['close'] - (atr_value * 0.9)
+
         
         # Calculate expiry time
         entry_time = datetime.now()
@@ -322,14 +326,18 @@ class SignalGenerator:
         """Analyze asset and generate signal for next candle"""
         try:
             # Get price data
-            df = self.get_price_data(asset, timeframe, 150)
+            df = self.get_price_data(asset, timeframe, 250)
             if df.empty:
+                return None
+            # 🛑 Skip M5 signal generation
+            if timeframe == 5:
+                self.logger.info(f"Skipping M5 signal generation for {asset}")
                 return None
             
             # Generate signal
             signal = self.generate_comprehensive_signal(df, asset, timeframe)
             
-            if signal and signal.confidence >= 0.65:
+            if signal and signal.confidence >= 0.79:
                 self.logger.info(
                     f"Signal: {asset} M{timeframe} | {signal.direction} | "
                     f"Confidence: {signal.confidence:.1%} | "
