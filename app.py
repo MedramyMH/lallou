@@ -32,8 +32,8 @@ class DataFetcher:
         
         # Assets to monitor
         self.monitored_assets = [
-            'EURUSD', 'GBPUSD', 'USDJPY', 'USDCHF', 'USDCAD',
-            'AUDUSD', 'NZDUSD', 'EURGBP', 'EURJPY', 'GBPJPY'
+            'EURUSD', 'GBPUSD', 'USDJPY', 'USDCAD', 'EURCAD',
+            'AUDUSD', 'EURGBP', 'EURJPY', 'GBPJPY'
         ]
         
         # Timeframes in minutes
