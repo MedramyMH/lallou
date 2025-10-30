@@ -23,8 +23,8 @@ class TradingSignalBot:
         # Only M1, M5, M15 for binary options
         self.timeframes = [1, 5, 15]
         self.assets = self.config.get('assets', [
-            'EURUSD', 'GBPUSD', 'USDJPY', 'USDCHF', 'USDCAD',
-            'AUDUSD', 'NZDUSD', 'EURGBP', 'EURJPY', 'GBPJPY'
+            'EURUSD', 'GBPUSD', 'USDJPY', 'USDCAD', 'EURCAD',
+            'AUDUSD', 'EURGBP', 'EURJPY', 'GBPJPY'
         ])
         
         self.signals_sent = 0
